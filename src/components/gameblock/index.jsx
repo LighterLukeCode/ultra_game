@@ -1,15 +1,18 @@
 import React from "react";
 
-const GameBlock = () => {
+const GameBlock = ({ title, imageUrl, price, genres }) => {
   return (
-    <div className="pizza-block-wrapper">
-      <div className="pizza-block">
-        {/* <Link key={id} to={`/pizza/${id}`}> */}
-        <img className="pizza-block__image" src="" alt="Pizza" />
-        <h4 className="pizza-block__title">hgfhf</h4>
+    <div className="game-block-wrapper">
+      <div className="game-block">
+        {/* <Link key={id} to={`/game/${id}`}> */}
+        <img className="game-block__image" src={imageUrl} alt="game" />
+        <h4 className="game-block__title">{title}</h4>
         {/* </Link> */}
-        <div className="pizza-block__selector">
+        <div className="game-block__selector">
           <ul>
+            {genres.map(genres => (
+              <li>{genres}</li>
+            ))}
             {/* {types.map(type => (
           <li key={type} onClick={() => setActiveType(type)} className={type === activeType ? "active" : ""}>
             {typeName[type]}
@@ -25,8 +28,8 @@ const GameBlock = () => {
         ))} */}
           </ul>
         </div>
-        <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от gfd ₽</div>
+        <div className="game-block__bottom">
+          <div className="game-block__price">{price} ₽</div>
           <button className="button button--outline button--add">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -34,7 +37,7 @@ const GameBlock = () => {
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
+            <span>Add to Cart</span>
             {/* {addedCount > 0 && <i>{addedCount}</i>} */}
           </button>
         </div>
