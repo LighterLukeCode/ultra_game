@@ -1,6 +1,6 @@
 import React from "react";
 
-const Categories = ({ setCategoryId }) => {
+const Categories = () => {
   const categories = [
     "Action/RPG",
     "Adventure",
@@ -16,9 +16,7 @@ const Categories = ({ setCategoryId }) => {
     <div className="categories">
       <ul>
         {categories.map((item, i) => (
-          <li key={i} onClick={() => setCategoryId(item)}>
-            {item}
-          </li>
+          <li key={i}>{item}</li>
         ))}
         {/* {categories.map((title, i) => (
           <li key={i} onClick={() => onClickCategory(i)} className={value === i ? "active" : ""}>

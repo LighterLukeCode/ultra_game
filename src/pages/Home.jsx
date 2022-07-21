@@ -6,7 +6,6 @@ import Sort from "../components/Sort";
 
 const Home = () => {
   const [items, setItems] = React.useState([]);
-  const [categoryId, setCategoryId] = React.useState("RPG");
 
   const getGames = async () => {
     const { data } = await axios.get("https://62aa2737371180affbd08847.mockapi.io/items");
@@ -25,7 +24,6 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories setCategoryId={setCategoryId} />
         <Sort />
         {/* <Categories value={categoryId} onClickCategory={onClickCategory} />
     <Sort value={sortType} /> */}
@@ -41,11 +39,11 @@ const Home = () => {
         {/* {items.map(item => (
           <GameBlock {...item} />
         ))} */}
-        {items
+        {/* {items
           .filter(item => item.genres.includes(categoryId))
           .map(item => (
             <GameBlock {...item} />
-          ))}
+          ))} */}
         {/* {status === "loading"
         ? [...Array(6)].map((_, i) => <Skeleton key={i} />)
         : items
