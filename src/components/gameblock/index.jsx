@@ -1,4 +1,5 @@
 import React from "react";
+import games from "../../data.json";
 
 const GameBlock = ({ title, imageUrl, price, genres }) => {
   return (

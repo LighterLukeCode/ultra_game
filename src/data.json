@@ -4,104 +4,119 @@
     "title": "Witcher 3",
     "price": 2000,
     "genres": ["Action/RPG", "Adventure"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/115977_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/115977_IGDB-285x380.jpg",
+    "rating": 10
   },
   {
     "id": "2",
     "title": "Grand Theft Auto 5",
     "price": 2000,
     "genres": ["Action/RPG", "Adventure"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/32982_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/32982_IGDB-285x380.jpg",
+    "rating": 10
   },
   {
     "id": "3",
     "title": "Elden Ring",
     "price": 3000,
     "genres": ["Action/RPG", "Adventure"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/512953_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/512953_IGDB-285x380.jpg",
+    "rating": 9
   },
   {
     "id": "4",
     "title": "Final Fantasy VII Remake",
     "price": 2500,
     "genres": ["Action/RPG", "Adventure"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/490359_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/490359_IGDB-285x380.jpg",
+    "rating": 7
   },
   {
     "id": "5",
     "title": "PUBG: BATTLEGROUNDS",
     "price": 1000,
     "genres": ["Shooter", "BattleRoyle"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/493057-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/493057-285x380.jpg",
+    "rating": 7
   },
   {
     "id": "6",
     "title": "The Quarry",
     "price": 2300,
     "genres": ["Action/RPG", "Adventure"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/1937599489_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/1937599489_IGDB-285x380.jpg",
+    "rating": 8
   },
   {
     "id": "7",
     "title": "FIFA 22",
     "price": 2000,
     "genres": ["Sport", "Simulator"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/1869092879_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/1869092879_IGDB-285x380.jpg",
+    "rating": 6
   },
   {
     "id": "8",
     "title": "Call of Duty: Warzone",
     "price": 1500,
     "genres": ["Shooter", "BattleRoyle"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/512710-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/512710-285x380.jpg",
+    "rating": 7
   },
   {
     "id": "9",
     "title": "F1 2021",
     "price": 2000,
     "genres": ["Sport", "Racing"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/752590871_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/752590871_IGDB-285x380.jpg",
+    "rating": 6
   },
   {
     "id": "10",
     "title": "The Last of Us",
     "price": 3500,
     "genres": ["Action/RPG", "Adventure"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/33180_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/33180_IGDB-285x380.jpg",
+    "rating": 9
   },
   {
     "id": "11",
     "title": "World of Warcraft",
     "price": 2000,
     "genres": ["MMO", "RPG"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/18122-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/18122-285x380.jpg",
+    "rating": 10
   },
   {
     "id": "12",
     "title": "Final Fantasy XIV",
     "price": 2000,
     "genres": ["RPG", "MMO"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/24241_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/24241_IGDB-285x380.jpg",
+    "rating": 6
   },
   {
     "id": "13",
     "title": "Resident Evil Village",
     "price": 2500,
     "genres": ["Action/RPG", "Shooter"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/518017_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/518017_IGDB-285x380.jpg",
+    "rating": 8
   },
   {
     "id": "14",
-    "title": "https://static-cdn.jtvnw.net/ttv-boxart/65876_IGDB-285x380.jpg",
+    "title": "CyberPunk 2077",
     "price": 2000,
     "genres": ["Action/RPG", "Shooter"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/65876_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/65876_IGDB-285x380.jpg",
+    "rating": 9
   },
   {
     "id": "15",
     "title": "Escape from Tarkov",
     "price": 4000,
     "genres": ["Action/RPG", "Shooter"],
-    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/491931_IGDB-285x380.jpg"
+    "imageUrl": "https://static-cdn.jtvnw.net/ttv-boxart/491931_IGDB-285x380.jpg",
+    "rating": 7
   }
 ]

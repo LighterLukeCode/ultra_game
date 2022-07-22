@@ -1,7 +1,10 @@
 import React from "react";
 
 const Categories = () => {
+  const [activeTab, setActiveTab] = React.useState(0);
+
   const categories = [
+    "Все жанры",
     "Action/RPG",
     "Adventure",
     "Shooter",
@@ -12,17 +15,15 @@ const Categories = () => {
     "MMO",
     "RPG",
   ];
+
   return (
     <div className="categories">
       <ul>
-        {categories.map((item, i) => (
-          <li key={i}>{item}</li>
-        ))}
-        {/* {categories.map((title, i) => (
-          <li key={i} onClick={() => onClickCategory(i)} className={value === i ? "active" : ""}>
+        {categories.map((title, i) => (
+          <li key={i} onClick={() => setActiveTab(i)} className={activeTab === i ? "active" : ""}>
             {title}
           </li>
-        ))} */}
+        ))}
       </ul>
     </div>
   );
