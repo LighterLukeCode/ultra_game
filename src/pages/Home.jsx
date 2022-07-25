@@ -9,14 +9,18 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [category, setCategory] = React.useState("Все жанры");
-  const [sortType, setSortType] = React.useState({ name: "популярности", sortType: "rating" });
+  const [sortType, setSortType] = React.useState({ name: "популярности", sortProperty: "rating" });
 
   const getGames = async () => {
     setIsLoading(true);
     const { data } = await axios.get(
-      category === "Все жанры"
-        ? "https://62aa2737371180affbd08847.mockapi.io/items"
-        : "https://62aa2737371180affbd08847.mockapi.io/items?genres=" + category
+      `https://62aa2737371180affbd08847.mockapi.io/items${
+        category !== "Все жанры" ? "?genres=" + category : "?"
+      }&sortBy=${sortType.sortProperty}&order=asc`
+
+      // category === "Все жанры"
+      //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
+      //   : "https://62aa2737371180affbd08847.mockapi.io/items?genres=" + category
     );
     setItems(data);
     // setCategoryId(data.genres);
@@ -25,7 +29,7 @@ const Home = () => {
 
   React.useEffect(() => {
     getGames();
-  }, [category]);
+  }, [category, sortType.sortProperty]);
 
   // React.useEffect(() => {
   //   setData(getGames());
