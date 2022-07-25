@@ -5,8 +5,10 @@ import GameBlock from "../components/gameblock";
 import Sort from "../components/Sort";
 import Skeleton from "../components/gameblock/Skeleton";
 import Pagination from "../components/Pagination";
+import { SearchContex } from "../App";
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+  const { searchValue } = React.useContext(SearchContex);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [category, setCategory] = React.useState("Все жанры");
