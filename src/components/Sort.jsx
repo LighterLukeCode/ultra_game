@@ -4,9 +4,9 @@ const Sort = ({ value, onClickSort }) => {
   const [open, setOpen] = React.useState(false);
 
   const sortList = [
-    { name: "популярности", sortType: "rating" },
-    { name: "цене", sortType: "price" },
-    { name: "названию", sortType: "title" },
+    { name: "популярности", sortProperty: "rating" },
+    { name: "цене", sortProperty: "price" },
+    { name: "названию", sortProperty: "title" },
   ];
 
   const onClickToggle = obj => {
@@ -33,7 +33,7 @@ const Sort = ({ value, onClickSort }) => {
               <li
                 key={i}
                 onClick={() => onClickToggle(obj)}
-                className={value.sortType === obj.sortType ? "active" : ""}
+                className={value.sortProperty === obj.sortProperty ? "active" : ""}
               >
                 {obj.name}
               </li>
