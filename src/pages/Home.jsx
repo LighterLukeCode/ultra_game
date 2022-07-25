@@ -5,22 +5,23 @@ import GameBlock from "../components/gameblock";
 import Sort from "../components/Sort";
 import Skeleton from "../components/gameblock/Skeleton";
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [category, setCategory] = React.useState("Все жанры");
-  const [sortType, setSortType] = React.useState({ name: "популярности", sortProperty: "rating" });
+  const [sortType, setSortType] = React.useState({ name: "более популярным", sortProperty: "rating" });
+  console.log(searchValue);
 
   const getGames = async () => {
     setIsLoading(true);
 
+    const categoryAPI = category !== "Все жанры" ? "?genres=" + category : "?";
     const sortBy = sortType.sortProperty.replace("-", "");
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
+    const search = searchValue ? `search=${searchValue}` : "";
 
     const { data } = await axios.get(
-      `https://62aa2737371180affbd08847.mockapi.io/items${
-        category !== "Все жанры" ? "?genres=" + category : "?"
-      }&sortBy=${sortBy}&order=${order}`
+      `https://62aa2737371180affbd08847.mockapi.io/items${categoryAPI}&sortBy=${sortBy}&order=${order}&${search}`
 
       // category === "Все жанры"
       //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
@@ -33,7 +34,7 @@ const Home = () => {
 
   React.useEffect(() => {
     getGames();
-  }, [category, sortType.sortProperty]);
+  }, [category, sortType.sortProperty, searchValue]);
 
   // React.useEffect(() => {
   //   setData(getGames());
