@@ -4,13 +4,14 @@ import Categories from "../components/Categories";
 import GameBlock from "../components/gameblock";
 import Sort from "../components/Sort";
 import Skeleton from "../components/gameblock/Skeleton";
+import Pagination from "../components/Pagination";
 
 const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [category, setCategory] = React.useState("Все жанры");
   const [sortType, setSortType] = React.useState({ name: "более популярным", sortProperty: "rating" });
-  console.log(searchValue);
+  const [currentPage, setCurrentPage] = React.useState("1");
 
   const getGames = async () => {
     setIsLoading(true);
@@ -21,7 +22,7 @@ const Home = ({ searchValue }) => {
     const search = searchValue ? `search=${searchValue}` : "";
 
     const { data } = await axios.get(
-      `https://62aa2737371180affbd08847.mockapi.io/items${categoryAPI}&sortBy=${sortBy}&order=${order}&${search}`
+      `https://62aa2737371180affbd08847.mockapi.io/items${categoryAPI}&page=${currentPage}&limit=6&sortBy=${sortBy}&order=${order}&${search}`
 
       // category === "Все жанры"
       //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
@@ -34,7 +35,7 @@ const Home = ({ searchValue }) => {
 
   React.useEffect(() => {
     getGames();
-  }, [category, sortType.sortProperty, searchValue]);
+  }, [category, sortType.sortProperty, searchValue, currentPage]);
 
   // React.useEffect(() => {
   //   setData(getGames());
@@ -81,6 +82,7 @@ const Home = ({ searchValue }) => {
                 // {...game} спред если все пропсы одинаковые
               ))}
       </div>
+      <Pagination onChangeCurrentPage={page => setCurrentPage(page)} />
       {/* )} */}
       {/* <Pagination currentPage={currentPage} onChangePage={(num: number) => dispatch(setCurrentPage(num))} /> */}
     </div>
