@@ -13,10 +13,14 @@ const Home = () => {
 
   const getGames = async () => {
     setIsLoading(true);
+
+    const sortBy = sortType.sortProperty.replace("-", "");
+    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
+
     const { data } = await axios.get(
       `https://62aa2737371180affbd08847.mockapi.io/items${
         category !== "Все жанры" ? "?genres=" + category : "?"
-      }&sortBy=${sortType.sortProperty}&order=asc`
+      }&sortBy=${sortBy}&order=${order}`
 
       // category === "Все жанры"
       //   ? "https://62aa2737371180affbd08847.mockapi.io/items"

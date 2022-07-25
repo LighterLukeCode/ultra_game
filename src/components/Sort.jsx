@@ -4,9 +4,12 @@ const Sort = ({ value, onClickSort }) => {
   const [open, setOpen] = React.useState(false);
 
   const sortList = [
-    { name: "популярности", sortProperty: "rating" },
-    { name: "цене", sortProperty: "price" },
-    { name: "названию", sortProperty: "title" },
+    { name: "более популярным", sortProperty: "rating" },
+    { name: "менее популярным", sortProperty: "-rating" },
+    { name: "дороже", sortProperty: "price" },
+    { name: "дешевле", sortProperty: "-price" },
+    { name: "названию (z...a)", sortProperty: "title" },
+    { name: "названию (a...z)", sortProperty: "-title" },
   ];
 
   const onClickToggle = obj => {
