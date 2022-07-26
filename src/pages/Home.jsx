@@ -7,19 +7,18 @@ import Skeleton from "../components/gameblock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContex } from "../App";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../redux/Slices/filterSlice";
+import { setCategory, setCurrentPage } from "../redux/Slices/filterSlice";
 
 const Home = () => {
   const category = useSelector(state => state.filterSlice.category);
   const sortType = useSelector(state => state.filterSlice.sort);
+  const currentPage = useSelector(state => state.filterSlice.currentPage);
 
   const dispatch = useDispatch();
 
   const { searchValue } = React.useContext(SearchContex);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-
-  const [currentPage, setCurrentPage] = React.useState(1);
 
   const getGames = async () => {
     setIsLoading(true);
@@ -90,7 +89,7 @@ const Home = () => {
                 // {...game} спред если все пропсы одинаковые
               ))}
       </div>
-      <Pagination onChangeCurrentPage={page => setCurrentPage(page)} />
+      <Pagination currentPage={currentPage} onChangeCurrentPage={page => dispatch(setCurrentPage(page))} />
       {/* )} */}
       {/* <Pagination currentPage={currentPage} onChangePage={(num: number) => dispatch(setCurrentPage(num))} /> */}
     </div>
