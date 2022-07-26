@@ -11,8 +11,8 @@ const GameBlock = ({ title, imageUrl, price, genres }) => {
         {/* </Link> */}
         <div className="game-block__selector">
           <ul>
-            {genres.map(genres => (
-              <li>{genres}</li>
+            {genres.map((genres, i) => (
+              <li key={i}>{genres}</li>
             ))}
             {/* {types.map(type => (
           <li key={type} onClick={() => setActiveType(type)} className={type === activeType ? "active" : ""}>

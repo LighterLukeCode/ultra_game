@@ -19,7 +19,6 @@ const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  // const [sortType, setSortType] = React.useState({ name: "более популярным", sortProperty: "rating" });
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const getGames = async () => {
@@ -85,8 +84,8 @@ const Home = () => {
               //   }
               //   return false;
               // })
-              .map(game => (
-                <GameBlock {...game} />
+              .map((game, i) => (
+                <GameBlock key={i} {...game} />
 
                 // {...game} спред если все пропсы одинаковые
               ))}
