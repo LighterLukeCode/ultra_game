@@ -1,6 +1,10 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../redux/Slices/filterSlice";
 
-const Sort = ({ value, onClickSort }) => {
+const Sort = ({ value }) => {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = React.useState(false);
 
   const sortList = [
@@ -13,7 +17,7 @@ const Sort = ({ value, onClickSort }) => {
   ];
 
   const onClickToggle = obj => {
-    onClickSort(obj);
+    dispatch(setSort(obj));
     setOpen(false);
   };
   return (

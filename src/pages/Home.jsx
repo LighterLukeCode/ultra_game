@@ -11,13 +11,15 @@ import { setCategory } from "../redux/Slices/filterSlice";
 
 const Home = () => {
   const category = useSelector(state => state.filterSlice.category);
+  const sortType = useSelector(state => state.filterSlice.sort);
+
   const dispatch = useDispatch();
 
   const { searchValue } = React.useContext(SearchContex);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const [sortType, setSortType] = React.useState({ name: "более популярным", sortProperty: "rating" });
+  // const [sortType, setSortType] = React.useState({ name: "более популярным", sortProperty: "rating" });
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const getGames = async () => {
@@ -54,7 +56,7 @@ const Home = () => {
         {/* <Categories value={categoryId} onClickCategory={onClickCategory} />
     <Sort value={sortType} /> */}
         <Categories value={category} onClickCategory={i => dispatch(setCategory(i))} />
-        <Sort value={sortType} onClickSort={i => setSortType(i)} />
+        <Sort value={sortType} />
       </div>
       <h2 className="content__title">Все игры</h2>
       {/* {status === "error" ? ( */}
