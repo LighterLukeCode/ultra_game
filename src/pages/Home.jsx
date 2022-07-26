@@ -6,14 +6,19 @@ import Sort from "../components/Sort";
 import Skeleton from "../components/gameblock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContex } from "../App";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../redux/Slices/filterSlice";
 
 const Home = () => {
+  const category = useSelector(state => state.filterSlice.category);
+  const dispatch = useDispatch();
+
   const { searchValue } = React.useContext(SearchContex);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [category, setCategory] = React.useState("Все жанры");
+
   const [sortType, setSortType] = React.useState({ name: "более популярным", sortProperty: "rating" });
-  const [currentPage, setCurrentPage] = React.useState("1");
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const getGames = async () => {
     setIsLoading(true);
@@ -48,7 +53,7 @@ const Home = () => {
       <div className="content__top">
         {/* <Categories value={categoryId} onClickCategory={onClickCategory} />
     <Sort value={sortType} /> */}
-        <Categories value={category} onClickCategory={i => setCategory(i)} />
+        <Categories value={category} onClickCategory={i => dispatch(setCategory(i))} />
         <Sort value={sortType} onClickSort={i => setSortType(i)} />
       </div>
       <h2 className="content__title">Все игры</h2>
