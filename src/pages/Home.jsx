@@ -1,5 +1,7 @@
 import axios from "axios";
 import React from "react";
+import qs from "qs";
+import { useNavigate } from "react-router-dom";
 import Categories from "../components/Categories";
 import GameBlock from "../components/gameblock";
 import Sort from "../components/Sort";
@@ -7,12 +9,17 @@ import Skeleton from "../components/gameblock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContex } from "../App";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory, setCurrentPage } from "../redux/Slices/filterSlice";
+import { setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
+import { sortList } from "../components/Sort";
+import { useRef } from "react";
 
 const Home = () => {
+  const navigate = useNavigate();
   const category = useSelector(state => state.filterSlice.category);
   const sortType = useSelector(state => state.filterSlice.sort);
   const currentPage = useSelector(state => state.filterSlice.currentPage);
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
 
   const dispatch = useDispatch();
 
@@ -41,7 +48,34 @@ const Home = () => {
   };
 
   React.useEffect(() => {
-    getGames();
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = sortList.find(obj => obj.sortProperty === params.sortProperty);
+
+      dispatch(setFilter({ ...params, sort }));
+      isSearch.current = true;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (!isSearch.current) {
+      getGames();
+    }
+
+    isSearch.current = false;
+  }, [category, sortType.sortProperty, searchValue, currentPage]);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sortType.sortProperty,
+        category,
+        currentPage,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
   }, [category, sortType.sortProperty, searchValue, currentPage]);
 
   // React.useEffect(() => {
