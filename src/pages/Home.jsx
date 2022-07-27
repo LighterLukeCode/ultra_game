@@ -12,19 +12,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
 import { sortList } from "../components/Sort";
 import { useRef } from "react";
+import { setItem } from "../redux/Slices/gameSlice";
 
 const Home = () => {
   const navigate = useNavigate();
   const category = useSelector(state => state.filterSlice.category);
   const sortType = useSelector(state => state.filterSlice.sort);
   const currentPage = useSelector(state => state.filterSlice.currentPage);
+  const { items } = useSelector(state => state.gameSlice);
+
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
   const dispatch = useDispatch();
 
   const { searchValue } = React.useContext(SearchContex);
-  const [items, setItems] = React.useState([]);
+
   const [isLoading, setIsLoading] = React.useState(true);
 
   const getGames = async () => {
@@ -42,7 +45,9 @@ const Home = () => {
       //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
       //   : "https://62aa2737371180affbd08847.mockapi.io/items?genres=" + category
     );
-    setItems(data);
+    // setItems(data);
+    dispatch(setItem(data));
+
     // setCategoryId(data.genres);
     setIsLoading(false);
   };
