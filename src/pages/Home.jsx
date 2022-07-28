@@ -26,7 +26,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const { searchValue } = React.useContext(SearchContex);
+  const searchValue = useSelector(state => state.filterSlice.searchValue);
 
   // const [isLoading, setIsLoading] = React.useState(true);
 
