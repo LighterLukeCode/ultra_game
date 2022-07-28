@@ -7,6 +7,7 @@ import Sort from "./components/Sort";
 import Categories from "./components/Categories";
 import NotFound from "./pages/NotFound";
 import React from "react";
+import FullGame from "./pages/FullGame";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/game/:id" element={<FullGame />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

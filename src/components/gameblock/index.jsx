@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import games from "../../data.json";
 import { addItem } from "../../redux/Slices/cartSlice";
+import { Link } from "react-router-dom";
 
 const GameBlock = ({ id, title, imageUrl, price, genres }) => {
   const dispatch = useDispatch();
@@ -20,10 +21,10 @@ const GameBlock = ({ id, title, imageUrl, price, genres }) => {
   return (
     <div className="game-block-wrapper">
       <div className="game-block">
-        {/* <Link key={id} to={`/game/${id}`}> */}
-        <img className="game-block__image" src={imageUrl} alt="game" />
-        <h4 className="game-block__title">{title}</h4>
-        {/* </Link> */}
+        <Link to={`/game/${id}`}>
+          <img className="game-block__image" src={imageUrl} alt="game" />
+          <h4 className="game-block__title">{title}</h4>
+        </Link>
         <div className="game-block__selector">
           <ul>
             {genres.map((genres, i) => (
