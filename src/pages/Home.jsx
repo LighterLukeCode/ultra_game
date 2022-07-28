@@ -28,25 +28,13 @@ const Home = () => {
 
   const searchValue = useSelector(state => state.filterSlice.searchValue);
 
-  // const [isLoading, setIsLoading] = React.useState(true);
-
   const getGames = async () => {
-    // setIsLoading(true);
-
     const categoryAPI = category !== "Все жанры" ? "?genres=" + category : "?";
     const sortBy = sortType.sortProperty.replace("-", "");
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const search = searchValue ? `search=${searchValue}` : "";
 
-    // category === "Все жанры"
-    //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
-    //   : "https://62aa2737371180affbd08847.mockapi.io/items?genres=" + category
-
-    // setItems(data);
     dispatch(fetchGame({ categoryAPI, sortBy, order, search, currentPage }));
-
-    // setCategoryId(data.genres);
-    // setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -79,10 +67,6 @@ const Home = () => {
     }
     isMounted.current = true;
   }, [category, sortType.sortProperty, searchValue, currentPage]);
-
-  // React.useEffect(() => {
-  //   setData(getGames());
-  // });
 
   return (
     <div className="container">
