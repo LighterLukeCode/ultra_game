@@ -12,14 +12,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
 import { sortList } from "../components/Sort";
 import { useRef } from "react";
-import { setItem } from "../redux/Slices/gameSlice";
+import { fetchGame, setItem } from "../redux/Slices/gameSlice";
 
 const Home = () => {
   const navigate = useNavigate();
   const category = useSelector(state => state.filterSlice.category);
   const sortType = useSelector(state => state.filterSlice.sort);
   const currentPage = useSelector(state => state.filterSlice.currentPage);
-  const { items } = useSelector(state => state.gameSlice);
+  const { items, status } = useSelector(state => state.gameSlice);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -28,28 +28,25 @@ const Home = () => {
 
   const { searchValue } = React.useContext(SearchContex);
 
-  const [isLoading, setIsLoading] = React.useState(true);
+  // const [isLoading, setIsLoading] = React.useState(true);
 
   const getGames = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
 
     const categoryAPI = category !== "Все жанры" ? "?genres=" + category : "?";
     const sortBy = sortType.sortProperty.replace("-", "");
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const search = searchValue ? `search=${searchValue}` : "";
 
-    const { data } = await axios.get(
-      `https://62aa2737371180affbd08847.mockapi.io/items${categoryAPI}&page=${currentPage}&limit=6&sortBy=${sortBy}&order=${order}&${search}`
+    // category === "Все жанры"
+    //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
+    //   : "https://62aa2737371180affbd08847.mockapi.io/items?genres=" + category
 
-      // category === "Все жанры"
-      //   ? "https://62aa2737371180affbd08847.mockapi.io/items"
-      //   : "https://62aa2737371180affbd08847.mockapi.io/items?genres=" + category
-    );
     // setItems(data);
-    dispatch(setItem(data));
+    dispatch(fetchGame({ categoryAPI, sortBy, order, search, currentPage }));
 
     // setCategoryId(data.genres);
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   React.useEffect(() => {
@@ -64,11 +61,11 @@ const Home = () => {
   }, []);
 
   React.useEffect(() => {
-    if (!isSearch.current) {
-      getGames();
-    }
+    // if (!isSearch.current) {
 
-    isSearch.current = false;
+    // }
+    getGames();
+    // isSearch.current = false;
   }, [category, sortType.sortProperty, searchValue, currentPage]);
 
   React.useEffect(() => {
@@ -90,47 +87,24 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        {/* <Categories value={categoryId} onClickCategory={onClickCategory} />
-    <Sort value={sortType} /> */}
         <Categories value={category} onClickCategory={i => dispatch(setCategory(i))} />
         <Sort value={sortType} />
       </div>
       <h2 className="content__title">Все игры</h2>
-      {/* {status === "error" ? ( */}
-      {/* <div className="content__error-info">
-        <h2>Произошла ошибка</h2>
-        <p>Пезагрузите страницу</p>
-      </div> */}
-      {/* // ) : ( */}
-      <div className="content__items">
-        {/* {games.map(item => (
-          <GameBlock {...item} />
-        ))} */}
-        {/* <GameBlock /> */}
-        {/* {items
-          .filter(item => item.genres.includes(categoryId))
-          .map(item => (
-            <GameBlock {...item} />
-          ))} */}
-        {isLoading
-          ? [...Array(6)].map((_, i) => <Skeleton key={i} />)
-          : items
-              // Подходит для  поиска без бека, с постоянной датой
-              //.filter(item => {
-              //   if (item.title.toLowerCase().includes(searchValue.toLowerCase())) {
-              //     return true;
-              //   }
-              //   return false;
-              // })
-              .map((game, i) => (
-                <GameBlock key={i} {...game} />
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>Произошла ошибка</h2>
+          <p>Перезагрузите страницу</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading"
+            ? [...Array(6)].map((_, i) => <Skeleton key={i} />)
+            : items.map((game, i) => <GameBlock key={i} {...game} />)}
+        </div>
+      )}
 
-                // {...game} спред если все пропсы одинаковые
-              ))}
-      </div>
       <Pagination currentPage={currentPage} onChangeCurrentPage={page => dispatch(setCurrentPage(page))} />
-      {/* )} */}
-      {/* <Pagination currentPage={currentPage} onChangePage={(num: number) => dispatch(setCurrentPage(num))} /> */}
     </div>
   );
 };
