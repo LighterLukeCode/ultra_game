@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
@@ -7,26 +6,25 @@ import GameBlock from "../components/gameblock";
 import Sort from "../components/Sort";
 import Skeleton from "../components/gameblock/Skeleton";
 import Pagination from "../components/Pagination";
-import { SearchContex } from "../App";
-import { useDispatch, useSelector } from "react-redux";
-import { setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { FilterConfig, setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
 import { sortList } from "../components/Sort";
 import { useRef } from "react";
 import { fetchGame, setItem } from "../redux/Slices/gameSlice";
 
 const Home = () => {
   const navigate = useNavigate();
-  const category = useSelector(state => state.filterSlice.category);
-  const sortType = useSelector(state => state.filterSlice.sort);
-  const currentPage = useSelector(state => state.filterSlice.currentPage);
-  const { items, status } = useSelector(state => state.gameSlice);
+  const category = useAppSelector(state => state.filterSlice.category);
+  const sortType = useAppSelector(state => state.filterSlice.sort);
+  const currentPage = useAppSelector(state => state.filterSlice.currentPage);
+  const { items, status } = useAppSelector(state => state.gameSlice);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const searchValue = useSelector(state => state.filterSlice.searchValue);
+  const searchValue = useAppSelector(state => state.filterSlice.searchValue);
 
   const getGames = async () => {
     const categoryAPI = category !== "Все жанры" ? "?genres=" + category : "?";
@@ -39,11 +37,13 @@ const Home = () => {
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1)) as FilterConfig;
 
       const sort = sortList.find(obj => obj.sortProperty === params.sortProperty);
 
-      dispatch(setFilter({ ...params, sort }));
+      const normalizedSort = sort === undefined ? { name: "более популярным", sortProperty: "rating" } : sort;
+
+      dispatch(setFilter({ ...params, normalizedSort }));
       isSearch.current = true;
     }
   }, []);
@@ -71,7 +71,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={category} onClickCategory={i => dispatch(setCategory(i))} />
+        <Categories value={category} onClickCategory={id => dispatch(setCategory(id))} />
         <Sort value={sortType} />
       </div>
       <h2 className="content__title">Все игры</h2>
@@ -84,7 +84,7 @@ const Home = () => {
         <div className="content__items">
           {status === "loading"
             ? [...Array(6)].map((_, i) => <Skeleton key={i} />)
-            : items.map((game, i) => <GameBlock key={i} {...game} />)}
+            : items.map((game, i) => <GameBlock key={i} game={game} />)}
         </div>
       )}
 

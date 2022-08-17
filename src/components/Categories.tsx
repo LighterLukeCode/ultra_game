@@ -1,6 +1,11 @@
 import React from "react";
 
-const Categories = ({ value, onClickCategory }) => {
+interface CategoriesProps {
+  value: string;
+  onClickCategory: (id: string) => void;
+}
+
+const Categories = ({ value, onClickCategory }: CategoriesProps) => {
   const categories = [
     "Все жанры",
     "Action/RPG",

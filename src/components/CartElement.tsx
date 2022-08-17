@@ -1,36 +1,41 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { CartItem } from "../interfaces/CartItem";
+
+import { useAppDispatch } from "../redux/hooks";
 import { addItem, minusItem } from "../redux/Slices/cartSlice";
 import { removeItem } from "../redux/Slices/cartSlice";
 
-const CartItem = ({ id, imageUrl, title, count, price }) => {
-  const dispatch = useDispatch();
+interface CartElementProps {
+  cartItem: CartItem;
+}
+
+const CartElement = (props: CartElementProps) => {
+  const dispatch = useAppDispatch();
 
   const onClickPlusItem = () => {
-    dispatch(addItem({ id }));
+    dispatch(addItem(props.cartItem));
   };
   const onClickMinusItem = () => {
-    dispatch(minusItem(id));
+    dispatch(minusItem(props.cartItem.game.id));
   };
 
   const onClickRemoveItem = () => {
     if (window.confirm("Удалить игру?")) {
-      dispatch(removeItem(id));
+      dispatch(removeItem(props.cartItem.game.id));
     }
   };
 
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="game-block__image" src={imageUrl} alt="game" />
+        <img className="game-block__image" src={props.cartItem.game.imageUrl} alt="game" />
       </div>
       <div className="cart__item-info">
-        <h3>{title}</h3>
-        <p>{/* {type}, {size}. */}</p>
+        <h3>{props.cartItem.game.title}</h3>
       </div>
       <div className="cart__item-count">
         <button
-          disabled={count <= 1}
+          disabled={props.cartItem.count <= 1}
           onClick={onClickMinusItem}
           className="button button--outline button--circle cart__item-count-minus"
         >
@@ -45,7 +50,7 @@ const CartItem = ({ id, imageUrl, title, count, price }) => {
             />
           </svg>
         </button>
-        <b>{count}</b>
+        <b>{props.cartItem.count}</b>
         <div onClick={onClickPlusItem} className="button button--outline button--circle cart__item-count-plus">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -60,7 +65,7 @@ const CartItem = ({ id, imageUrl, title, count, price }) => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price * count} ₽</b>
+        <b>{props.cartItem.game.price * props.cartItem.count} ₽</b>
       </div>
       <div className="cart__item-remove">
         <button onClick={onClickRemoveItem} className="button button--outline button--circle">
@@ -80,4 +85,4 @@ const CartItem = ({ id, imageUrl, title, count, price }) => {
   );
 };
 
-export default CartItem;
+export default CartElement;

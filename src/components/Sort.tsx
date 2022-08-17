@@ -1,6 +1,6 @@
 import React from "react";
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../redux/hooks";
 import { setSort } from "../redux/Slices/filterSlice";
 
 export const sortList = [
@@ -13,20 +13,19 @@ export const sortList = [
 ];
 
 const Sort = ({ value }) => {
-  const dispatch = useDispatch();
-  const sortRef = useRef();
+  const dispatch = useAppDispatch();
+  const sortRef = useRef<HTMLInputElement>(null);
 
   const [open, setOpen] = React.useState(false);
 
-  const onClickToggle = obj => {
-    dispatch(setSort(obj));
+  const onClickToggle = sort => {
+    dispatch(setSort(sort));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const onClickCloseSort = e => {
-      console.log(e);
-      if (!e.path.includes(sortRef.current)) {
+    const onClickCloseSort = event => {
+      if (!event.path.includes(sortRef.current)) {
         setOpen(false);
       }
     };
@@ -50,13 +49,13 @@ const Sort = ({ value }) => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((obj, i) => (
+            {sortList.map((sort, i) => (
               <li
                 key={i}
-                onClick={() => onClickToggle(obj)}
-                className={value.sortProperty === obj.sortProperty ? "active" : ""}
+                onClick={() => onClickToggle(sort)}
+                className={value.sortProperty === sort.sortProperty ? "active" : ""}
               >
-                {obj.name}
+                {sort.name}
               </li>
             ))}
           </ul>

@@ -1,20 +1,20 @@
 import React from "react";
 import styles from "./search.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../../redux/hooks";
 import { useRef } from "react";
 import debounce from "lodash.debounce";
 import { setSearchValue } from "../../redux/Slices/filterSlice";
 
 const Search = () => {
   const [value, setValue] = React.useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
     setValue("");
     dispatch(setSearchValue(""));
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   const updateSearchValue = React.useCallback(
@@ -75,7 +75,6 @@ const Search = () => {
           viewBox="0 0 14 14"
           width="14px"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlnssketch="http://www.bohemiancoding.com/sketch/ns"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
           <title />

@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import CartItem from "../components/CartItem";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+
 import { clearItem, selectCart } from "../redux/Slices/cartSlice";
 import CartEmpty from "../components/CartEmpty";
+import CartElement from "../components/CartElement";
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const { items, totalPrice } = useSelector(selectCart);
+  const dispatch = useAppDispatch();
+  const { items, totalPrice } = useAppSelector(selectCart);
   const totalCount = items.reduce((sum, obj) => sum + obj.count, 0);
 
   const clearCart = () => {
@@ -85,18 +86,16 @@ const Cart = () => {
         </div>
         <div className="content__items">
           {items.map(item => (
-            <CartItem key={item.id} {...item} />
+            <CartElement key={item.game.id} cartItem={item} />
           ))}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              {" "}
-              Всего игр: <b>{totalCount} шт.</b>{" "}
+              Всего игр: <b>{totalCount} шт.</b>
             </span>
             <span>
-              {" "}
-              Сумма заказа: <b>{totalPrice} ₽</b>{" "}
+              Сумма заказа: <b>{totalPrice} ₽</b>
             </span>
           </div>
           <div className="cart__bottom-buttons">

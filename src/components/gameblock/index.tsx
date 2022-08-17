@@ -1,52 +1,42 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import games from "../../data.json";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addItem } from "../../redux/Slices/cartSlice";
 import { Link } from "react-router-dom";
+import { CartItem } from "../../interfaces/CartItem";
+import { Game } from "../../interfaces/Game";
 
-const GameBlock = ({ id, title, imageUrl, price, genres }) => {
-  const dispatch = useDispatch();
-  const cartItem = useSelector(state => state.cartSlice.items.find(obj => obj.id === id));
+interface Props {
+  game: Game;
+}
+
+const GameBlock = (props: Props) => {
+  const dispatch = useAppDispatch();
+  const cartItem = useAppSelector(state => state.cartSlice.items.find(obj => obj.game.id === props.game.id));
   const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAddItem = () => {
-    const item = {
-      id,
-      imageUrl,
-      price,
-      title,
+    const item: CartItem = {
+      game: props.game,
+      count: 1,
     };
     dispatch(addItem(item));
   };
   return (
     <div className="game-block-wrapper">
       <div className="game-block">
-        <Link to={`/game/${id}`}>
-          <img className="game-block__image" src={imageUrl} alt="game" />
-          <h4 className="game-block__title">{title}</h4>
+        <Link to={`/game/${props.game.id}`}>
+          <img className="game-block__image" src={props.game.imageUrl} alt="game" />
+          <h4 className="game-block__title">{props.game.title}</h4>
         </Link>
         <div className="game-block__selector">
           <ul>
-            {genres.map((genres, i) => (
+            {props.game.genres.map((genres, i) => (
               <li key={i}>{genres}</li>
             ))}
-            {/* {types.map(type => (
-          <li key={type} onClick={() => setActiveType(type)} className={type === activeType ? "active" : ""}>
-            {typeName[type]}
-          </li> */}
-
-            {/* ))} */}
-          </ul>
-          <ul>
-            {/* {sizes.map((size, i) => (
-          <li key={i} onClick={() => setActiveSize(i)} className={activeSize === i ? "active" : ""}>
-            {size} см.
-          </li>
-        ))} */}
           </ul>
         </div>
         <div className="game-block__bottom">
-          <div className="game-block__price">{price} ₽</div>
+          <div className="game-block__price">{props.game.price} ₽</div>
           <button onClick={onClickAddItem} className="button button--outline button--add">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

@@ -2,10 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Game } from "../interfaces/Game";
 
 const FullGame = () => {
   const { id } = useParams();
-  const [game, setGame] = useState();
+  const [game, setGame] = useState<Game>();
 
   const getGame = async () => {
     try {

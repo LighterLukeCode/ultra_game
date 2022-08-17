@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../redux/hooks";
 import { Link } from "react-router-dom";
 
 import logo from "../assets/img/logo.svg";
@@ -7,7 +7,7 @@ import { selectCart } from "../redux/Slices/cartSlice";
 import Search from "./Search";
 
 const Header = () => {
-  const { items, totalPrice } = useSelector(selectCart);
+  const { items, totalPrice } = useAppSelector(selectCart);
   const totalCount = items.reduce((sum, obj) => sum + obj.count, 0);
   return (
     <div className="header">
