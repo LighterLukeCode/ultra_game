@@ -3,13 +3,12 @@ import "./scss/app.scss";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
-import Sort from "./components/Sort";
-import Categories from "./components/Categories";
+
 import NotFound from "./pages/NotFound";
 import React from "react";
 import FullGame from "./pages/FullGame";
 
-function App() {
+export function App() {
   return (
     <div className="wrapper">
       <div className="content">
@@ -26,5 +25,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

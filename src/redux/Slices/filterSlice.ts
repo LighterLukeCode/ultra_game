@@ -16,6 +16,10 @@ interface FilterState extends FilterConfig {
   searchValue: string;
 }
 
+export interface QueryString extends FilterConfig {
+  sortProperty: string;
+}
+
 const initialState: FilterState = {
   currentPage: 1,
   searchValue: "",

@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { setSort } from "../redux/Slices/filterSlice";
 
+type M = MouseEvent & {
+  path: Node[];
+};
 export const sortList = [
   { name: "более популярным", sortProperty: "rating" },
   { name: "менее популярным", sortProperty: "-rating" },
@@ -14,7 +17,7 @@ export const sortList = [
 
 const Sort = ({ value }) => {
   const dispatch = useAppDispatch();
-  const sortRef = useRef<HTMLInputElement>(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = React.useState(false);
 
@@ -24,9 +27,12 @@ const Sort = ({ value }) => {
   };
 
   React.useEffect(() => {
-    const onClickCloseSort = event => {
-      if (!event.path.includes(sortRef.current)) {
-        setOpen(false);
+    const onClickCloseSort = (event: M) => {
+      const composed = Event.composedPath();
+      if (sortRef.current !== null) {
+        if (!event.path.includes(sortRef.current)) {
+          setOpen(false);
+        }
       }
     };
     document.body.addEventListener("click", onClickCloseSort);

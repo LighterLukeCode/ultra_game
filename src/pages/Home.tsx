@@ -7,7 +7,7 @@ import Sort from "../components/Sort";
 import Skeleton from "../components/gameblock/Skeleton";
 import Pagination from "../components/Pagination";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { FilterConfig, setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
+import { FilterConfig, QueryString, setCategory, setCurrentPage, setFilter } from "../redux/Slices/filterSlice";
 import { sortList } from "../components/Sort";
 import { useRef } from "react";
 import { fetchGame, setItem } from "../redux/Slices/gameSlice";
@@ -37,13 +37,13 @@ const Home = () => {
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1)) as FilterConfig;
+      const params = qs.parse(window.location.search.substring(1)) as unknown as QueryString;
 
       const sort = sortList.find(obj => obj.sortProperty === params.sortProperty);
 
       const normalizedSort = sort === undefined ? { name: "более популярным", sortProperty: "rating" } : sort;
 
-      dispatch(setFilter({ ...params, normalizedSort }));
+      dispatch(setFilter({ ...params, sort: normalizedSort }));
       isSearch.current = true;
     }
   }, []);
@@ -88,7 +88,7 @@ const Home = () => {
         </div>
       )}
 
-      <Pagination currentPage={currentPage} onChangeCurrentPage={page => dispatch(setCurrentPage(page))} />
+      <Pagination currentPage={currentPage} onChangeCurrentPage={(page: number) => dispatch(setCurrentPage(page))} />
     </div>
   );
 };
