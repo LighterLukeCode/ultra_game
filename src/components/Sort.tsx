@@ -1,11 +1,8 @@
 import React from "react";
 import { useRef } from "react";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setSort } from "../redux/Slices/filterSlice";
 
-type M = MouseEvent & {
-  path: Node[];
-};
 export const sortList = [
   { name: "более популярным", sortProperty: "rating" },
   { name: "менее популярным", sortProperty: "-rating" },
@@ -15,22 +12,28 @@ export const sortList = [
   { name: "названию (a...z)", sortProperty: "-title" },
 ];
 
-const Sort = ({ value }) => {
+type SortType = {
+  name: string;
+  sortProperty: string;
+};
+
+const Sort = () => {
+  const sortOption = useAppSelector(state => state.filterSlice.sort);
   const dispatch = useAppDispatch();
   const sortRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = React.useState(false);
 
-  const onClickToggle = sort => {
+  const onClickToggle = (sort: SortType) => {
     dispatch(setSort(sort));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const onClickCloseSort = (event: M) => {
-      const composed = Event.composedPath();
+    const onClickCloseSort = (event: MouseEvent) => {
+      const composed = event.composedPath();
       if (sortRef.current !== null) {
-        if (!event.path.includes(sortRef.current)) {
+        if (!composed.includes(sortRef.current)) {
           setOpen(false);
         }
       }
@@ -49,7 +52,7 @@ const Sort = ({ value }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{sortOption.name}</span>
       </div>
 
       {open && (
@@ -59,7 +62,7 @@ const Sort = ({ value }) => {
               <li
                 key={i}
                 onClick={() => onClickToggle(sort)}
-                className={value.sortProperty === sort.sortProperty ? "active" : ""}
+                className={sortOption.sortProperty === sort.sortProperty ? "active" : ""}
               >
                 {sort.name}
               </li>

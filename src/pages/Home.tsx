@@ -72,7 +72,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={category} onClickCategory={id => dispatch(setCategory(id))} />
-        <Sort value={sortType} />
+        <Sort />
       </div>
       <h2 className="content__title">Все игры</h2>
       {status === "error" ? (
